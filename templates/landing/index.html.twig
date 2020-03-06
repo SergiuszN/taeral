@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'landing.index.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container margin-top-30">
+        {% include 'components/nav.html.twig' %}
+
+        <div class="jumbotron">
+            <h1>{{ 'landing.index.header'|trans }}</h1>
+            <p>{{ 'landing.index.lead'|trans }}</p>
+            <p><a class="btn btn-primary btn-lg" href="#" role="button">{{ 'landing.index.more'|trans }}</a></p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+landing:
+    index:
+        title: 'Taeral'
+        header: 'Wypróbuj bezpłatnie'
+        lead: 'Taeral - to niezwykle prosty system do monitoringu czasu spędzonego w pracy'
+        more: 'Dowiedz się więcej'
+nav:
+    title: 'Taeral'
+    sign: 'Zaloguj się'
+    togleNavigation: 'Rozwiń lub zwiń'
+security:
+    login:
+        title: 'Zaloguj się'
+        form:
+            email: 'E-mail'
+            password: 'Hasło'
+            submit: 'Zaloguj się'
+            cancel: 'Powrót'
+            noAccount: 'Nie masz konta?'
+            registerHere: 'Zarejestruj się tu.'
+week.day.0: 'Niedziela'
+week.day.1: 'Poniedziałek'
+week.day.2: 'Wtorek'
+week.day.3: 'Środa'
+week.day.4: 'Czwartek'
+week.day.5: 'Piątek'
+week.day.6: 'Sobota'
+work:
+    index:
+        title: 'Lista godzin'

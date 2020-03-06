@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'work.index.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container margin-top-30">
+        {% include 'components/nav.html.twig' %}
+
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Start</th>
+                    <th>Stop</th>
+                    <th>Hours</th>
+                    <th>Minutes</th>
+                    <th>Required</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for day in days %}
+                    <tr data-id="{{ day.id }}" class="
+                            {% if day.date.format('Y-m-d') == 'now'|date('Y-m-d') %}
+                                warning
+                            {% else %}
+                                {% if day.date.format('w') in [0,6] %}success{% endif %}
+                            {% endif %}">
+                        <td>
+                            {{ day.date.format('d/m/Y') }}
+                            <strong>{{ ('week.day.' ~ day.date.format('w'))|trans }}</strong>
+                        </td>
+                        <td>
+                            <input type="time" class="form-control day-start"
+                                   {% if day.start is not null %}value="{{ day.start.format('H:i') }}"{% endif %}>
+                        </td>
+                        <td>
+                            <input type="time" class="form-control day-stop"
+                                   {% if day.stop is not null %}value="{{ day.stop.format('H:i') }}"{% endif %}>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control day-hours" value="{{ day.hours }}">
+                        </td>
+                        <td>
+                            <input type="number" class="form-control day-minutes" value="{{ day.minutes }}">
+                        </td>
+                        <td>
+                            {{ day.required }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        function rowUpdateFromTime(tr) {
+            var start = tr.querySelector('.day-start').value;
+            var stop = tr.querySelector('.day-stop').value;
+            var timeStart = Number(start.split(':')[0]) + (Number(start.split(':')[1]) / 60);
+            var timeStop = Number(stop.split(':')[0]) + (Number(stop.split(':')[1]) / 60);
+            var time = timeStop - timeStart;
+
+            console.log(time, timeStop, timeStart);
+            console.log(Math.trunc(time));
+
+            tr.querySelector('.day-hours').value = Math.trunc(time);
+            tr.querySelector('.day-minutes').value = Math.ceil(Math.abs(time - Math.trunc(time)) * 60);
+        }
+
+        document.querySelectorAll('.day-start').forEach(function (start) {
+            start.addEventListener('change', function () {
+                rowUpdateFromTime(this.parentNode.parentNode);
+            });
+        });
+    </script>
+{% endblock %}

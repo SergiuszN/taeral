@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'security.login.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="container margin-top-30">
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'security.login.title'|trans }}</h1>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        <form method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="form-group">
+                <label for="inputEmail">{{ 'security.login.form.email'|trans }}</label>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                       required
+                       autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword">{{ 'security.login.form.password'|trans }}</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    {{ 'security.login.form.submit'|trans }}
+                </button>
+                <a href="{{ path('landing_index') }}" class="btn btn-default pull-right">
+                    {{ 'security.login.form.cancel'|trans }}
+                </a>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="form-group">
+                {{ 'security.login.form.noAccount'|trans }} <a
+                        href="#">{{ 'security.login.form.registerHere'|trans }}</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}
